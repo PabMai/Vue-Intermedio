@@ -1,16 +1,14 @@
-<script  setup lang="ts">
-import { ref } from 'vue';
-// Version Composition API: setup
+/* -------------------------------------------------------------------------- */
+/*                               Consideraciones                              */
+/*                                                                            */
+/* 1 - Al importar un archivo extrerno se debe sacar la palabra setup         */
+/* de la etiqueta script                                                      */
+/*                                                                            */
+/* 2 - En el archivo externo se debe usar la importación de defineComponent   */
+/* (usar composition API: setup)                                              */
+/* -------------------------------------------------------------------------- */
 
-// Properties
-const counter = ref(0);
-
-// Methods
-const increase = () => {
-  counter.value++;
-}
-
-</script>
+<script lang="ts" src="./App.ts"></script>
 
 <template>
   <div class="wrapper">
