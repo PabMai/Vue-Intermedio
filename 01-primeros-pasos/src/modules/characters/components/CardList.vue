@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import jikanApi from '@/api/jikanApi';
+import type { Character } from '@/modules/characters/interfaces/character';
 
-jikanApi.get('/characters')
+jikanApi.get<Character[]>('/characters')
     .then(resp => {
-        console.log(resp)
+        console.log(resp.data)
     })
 
 </script>
