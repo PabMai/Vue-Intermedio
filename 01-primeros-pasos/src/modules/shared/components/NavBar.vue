@@ -1,13 +1,29 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 
+// const props = defineProps({
+//     title: {
+//         type: String,
+//         required: true
+//     }
+// });
+
+// Mediante generico
+//const props = defineProps<{ title: string }>();
+
+// Usando interface
+interface Props {
+    title: string;
+}
+
+const props = defineProps<Props>();
 
 </script>
 
 <template>
     <nav>
         <img src="@/assets/logo.svg" alt="logo" height="25" width="25">
-        <span>Algo</span>
+        <span>{{ props.title }}</span>
 
         <RouterLink to="/">Inicio</RouterLink>
         <RouterLink to="/about">Sobre</RouterLink>

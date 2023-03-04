@@ -7,7 +7,7 @@ import NavBar from '@/modules/shared/components/NavBar.vue';
   <div class="wrapper">
     <header>
       <!-- Navbar -->
-      <NavBar />
+      <NavBar title="BreakingBad" />
     </header>
     <main>
       <RouterView />
