@@ -1,25 +1,14 @@
-<script lang="ts">
-
-import { defineComponent, ref } from 'vue';
-
+<script  setup lang="ts">
+import { ref } from 'vue';
 // Version Composition API: setup
-export default defineComponent({
-  setup() {
-    const counter = ref(0);
 
-    const increase = () => {
-      counter.value++;
-    }
+// Properties
+const counter = ref(0);
 
-    return {
-      // Properties
-      counter,
-
-      // Methods
-      increase
-    }
-  }
-});
+// Methods
+const increase = () => {
+  counter.value++;
+}
 
 </script>
 
