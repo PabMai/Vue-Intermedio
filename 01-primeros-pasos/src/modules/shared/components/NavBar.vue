@@ -61,4 +61,13 @@ span {
 a {
     margin-right: 5px;
 }
+
+.router-link-active {
+    color: grey !important;
+    text-decoration: underline;
+}
+
+.router-link-exact-active {
+    text-decoration: none;
+}
 </style>
