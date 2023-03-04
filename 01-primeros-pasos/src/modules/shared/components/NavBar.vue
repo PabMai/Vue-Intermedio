@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import type { LinkRoutes } from '@/router/link-routes';
 
 // const props = defineProps({
 //     title: {
@@ -14,6 +15,7 @@ import { RouterLink } from 'vue-router';
 // Usando interface
 interface Props {
     title: string;
+    links: LinkRoutes[]
 }
 
 const props = defineProps<Props>();
@@ -25,8 +27,10 @@ const props = defineProps<Props>();
         <img src="@/assets/logo.svg" alt="logo" height="25" width="25">
         <span>{{ props.title }}</span>
 
-        <RouterLink to="/">Inicio</RouterLink>
-        <RouterLink to="/about">Sobre</RouterLink>
+        <RouterLink v-for="link of links" :key="link.name" :to="link.path">{{ link.title }}</RouterLink>
+
+        <!-- <RouterLink to="/">Inicio</RouterLink> -->
+        <!-- <RouterLink to="/about">Sobre</RouterLink> -->
     </nav>
 </template>
 
