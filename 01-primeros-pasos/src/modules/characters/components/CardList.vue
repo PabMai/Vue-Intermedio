@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { useCharacters } from '../composables/useCharacters';
 import type { CharacterResult, CharacterData } from '../interfaces/character';
 import rickandmortyApi from '@/api/rickandmortyApi';
+import CharacterCard from '@/modules/characters/components/CharacterCard.vue';
 
 //! 1- Normal suspense
 // const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
@@ -31,9 +32,15 @@ const { isLoading, isError, data: characters, error } = useQuery(
 <template>
     <h1 v-if="isLoading">Loading...</h1>
     <h1 v-if="isError">{{ error }}</h1>
-    <ul>
-        <li v-for="character of characters" :key="character.id">{{ character.name }}</li>
-    </ul>
+    <div class="card-list">
+        <CharacterCard v-for="character of characters" :key="character.id" :character="character" />
+    </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.card-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+</style>
