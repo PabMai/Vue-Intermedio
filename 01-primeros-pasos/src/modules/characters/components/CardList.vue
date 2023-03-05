@@ -20,6 +20,10 @@ const getCharactersSlow = async (): Promise<CharacterResult[]> => {
 const { isLoading, isError, data: characters, error } = useQuery(
     ['characters'],
     getCharactersSlow,
+    {
+        cacheTime: 1000 * 60,
+        refetchOnReconnect: 'always'
+    }
 );
 
 </script>
