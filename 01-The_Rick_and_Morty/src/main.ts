@@ -3,6 +3,9 @@ import App from './App.vue';
 import routerMain from './router';
 import { VueQueryPlugin } from '@tanstack/vue-query';
 
+// Stores
+import '@/stores/characters.store';
+
 // Styles
 import './assets/main.css';
 
