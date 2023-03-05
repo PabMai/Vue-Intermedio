@@ -15,6 +15,8 @@ const character = toRef(props, 'character');
     <!-- <pre>{{ JSON.stringify(character) }}</pre> -->
 
     <div class="character-card">
+        <img v-if="!character.image"
+            src="https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930" alt="No image">
         <img :src="character.image" :alt="character.name">
         <h3>{{ character.name }}</h3>
     </div>
