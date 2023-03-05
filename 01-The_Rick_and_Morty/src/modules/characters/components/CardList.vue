@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query';
-import { useCharacters } from '../composables/useCharacters';
+// import { useQuery } from '@tanstack/vue-query';
+// import { useCharacters } from '../composables/useCharacters';
 import type { CharacterResult, CharacterData } from '../interfaces/character';
-import rickandmortyApi from '@/api/rickandmortyApi';
+// import rickandmortyApi from '@/api/rickandmortyApi';
 import CharacterCard from '@/modules/characters/components/CharacterCard.vue';
 
 //! 1- Normal suspense
@@ -13,25 +13,35 @@ import CharacterCard from '@/modules/characters/components/CharacterCard.vue';
 // const { characters, isLoading, hasError, errorMessage } = useCharacters();
 
 //! 3- Tanstack Query
-const getCharactersSlow = async (): Promise<CharacterResult[]> => {
-    const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
-    return chacartetsData.results;
-}
+// const getCharactersSlow = async (): Promise<CharacterResult[]> => {
 
-const { isLoading, isError, data: characters, error } = useQuery(
-    ['characters'],
-    getCharactersSlow,
-    {
-        cacheTime: 1000 * 60,
-        refetchOnReconnect: 'always'
-    }
-);
+//     return new Promise((resolve) => {
+
+//         setTimeout(async () => {
+//             const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
+//             resolve(chacartetsData.results);
+//         }, 1);
+
+//     })
+
+// }
+
+// const { isLoading, isError, data: characters, error } = useQuery(
+//     ['characters'],
+//     getCharactersSlow,
+//     // {
+//     //     cacheTime: 1000 * 60,
+//     //     refetchOnReconnect: 'always'
+//     // }
+// );
+
+const props = defineProps<{ characters: CharacterResult[] }>();
 
 </script>
 
 <template>
-    <h1 v-if="isLoading">Loading...</h1>
-    <h1 v-if="isError">{{ error }}</h1>
+    <!-- <h1 v-if="isLoading">Loading...</h1> -->
+    <!-- <h1 v-if="isError">{{ error }}</h1> -->
     <div class="card-list">
         <CharacterCard v-for="character of characters" :key="character.id" :character="character" />
     </div>
