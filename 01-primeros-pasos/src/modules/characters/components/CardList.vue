@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import jikanApi from '@/api/jikanApi';
-import type { Character } from '@/modules/characters/interfaces/character';
+import { ref } from 'vue';
+import rickandmortyApi from '@/api/rickandmortyApi.js';
+import type { CharacterData, CharacterResult } from '@/modules/characters/interfaces/character';
 
-jikanApi.get<Character[]>('/characters')
+// const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
+// const characters: CharacterResult = chacartetsData.results;
+
+const characters = ref<CharacterResult[]>([]);
+
+rickandmortyApi.get<CharacterData[]>('/character')
     .then(resp => {
-        console.log(resp.data)
+        //characters.value
+        characters.value = resp.data.results;
     })
 
 </script>
 
 <template>
     <ul>
-        <li>Hola</li>
-        <li>Hola</li>
-        <li>Hola</li>
+        <li v-for="character of characters" :key="character.id">{{ character.name }}</li>
     </ul>
 </template>
 

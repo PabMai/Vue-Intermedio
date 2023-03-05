@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const jikanApi = axios.create({
-  baseURL: 'https://api.jikan.moe/v4/anime/20'
+  baseURL: 'https://rickandmortyapi.com/api'
 });
 
 export default jikanApi;

@@ -26,7 +26,9 @@ const linkRoutes: LinkRoutes[] = charactersRoute.children!
         <!-- Navbar -->
         <NavBar :show-icon="false" :links="linkRoutes" />
         <!-- RouterView + Suspense -->
-        <RouterView />
+        <Suspense>
+            <RouterView />
+        </Suspense>
 
     </div>
 </template>

@@ -1,65 +1,48 @@
-export interface Character {
-  data: Datum[];
+export interface CharacterData {
+  info: Info;
+  results: CharacterResult[];
 }
 
-export interface Datum {
-  character: CharacterClass;
-  role: Role;
-  favorites: number;
-  voice_actors: VoiceActor[];
+export interface Info {
+  count: number;
+  pages: number;
+  next: string;
+  prev: null;
 }
 
-export interface CharacterClass {
-  mal_id: number;
-  url: string;
-  images: CharacterImages;
+export interface CharacterResult {
+  id: number;
   name: string;
-}
-
-export interface CharacterImages {
-  jpg: Jpg;
-  webp: Webp;
-}
-
-export interface Jpg {
-  image_url: string;
-}
-
-export interface Webp {
-  image_url: string;
-  small_image_url: string;
-}
-
-export enum Role {
-  Main = 'Main',
-  Supporting = 'Supporting'
-}
-
-export interface VoiceActor {
-  person: Person;
-  language: Language;
-}
-
-export enum Language {
-  English = 'English',
-  French = 'French',
-  German = 'German',
-  Hebrew = 'Hebrew',
-  Hungarian = 'Hungarian',
-  Italian = 'Italian',
-  Japanese = 'Japanese',
-  Korean = 'Korean',
-  PortugueseBR = 'Portuguese (BR)',
-  Spanish = 'Spanish'
-}
-
-export interface Person {
-  mal_id: number;
+  status: Status;
+  species: Species;
+  type: string;
+  gender: Gender;
+  origin: Location;
+  location: Location;
+  image: string;
+  episode: string[];
   url: string;
-  images: PersonImages;
-  name: string;
+  created: Date;
 }
 
-export interface PersonImages {
-  jpg: Jpg;
+export enum Gender {
+  Female = 'Female',
+  Male = 'Male',
+  Unknown = 'unknown'
+}
+
+export interface Location {
+  name: string;
+  url: string;
+}
+
+export enum Species {
+  Alien = 'Alien',
+  Human = 'Human'
+}
+
+export enum Status {
+  Alive = 'Alive',
+  Dead = 'Dead',
+  Unknown = 'unknown'
 }
