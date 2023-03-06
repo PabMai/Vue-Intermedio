@@ -7,18 +7,24 @@ import { useQuery } from '@tanstack/vue-query';
 
 const props = defineProps<{ title: string, visible: boolean }>();
 
-// const getAllCharacters = async () => {
-//     const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
+const getAllCharacters = async () => {
+    const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
 
-//     return chacartetsData.results;
-// }
+    return chacartetsData.results;
+}
 
-// const { isLoading, isError, data: characters, error } = useQuery(
-//     ['characters'],
-//     getAllCharacters,
-// );
-
-
+const { isLoading, data } = useQuery(
+    ['characters'],
+    getAllCharacters,
+    {
+        onSuccess(data) {
+            characterStore.loadedCharacters(data);
+        },
+        onError(error) {
+            console.log(error)
+        }
+    }
+);
 
 </script>
 
