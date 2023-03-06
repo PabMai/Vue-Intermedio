@@ -7,15 +7,20 @@ import { useQuery } from '@tanstack/vue-query';
 
 const props = defineProps<{ title: string, visible: boolean }>();
 
-const getAllCharacters = async () => {
-    const { data: chacartetsData } = await rickandmortyApi.get<CharacterData[]>('/character');
+const getAllCharactersCache = async () => {
 
-    return chacartetsData.results;
+    if (characterStore.characters.count > 0) {
+        return characterStore.characters.list;
+    }
+
+    const { data } = await rickandmortyApi.get<CharacterData[]>('/character');
+
+    return data.results;
 }
 
-const { isLoading, data } = useQuery(
+useQuery(
     ['characters'],
-    getAllCharacters,
+    getAllCharactersCache,
     {
         onSuccess(data) {
             characterStore.loadedCharacters(data);
@@ -31,7 +36,7 @@ const { isLoading, data } = useQuery(
 <template>
     <div>
         <h1 v-if="characterStore.characters.isLoading">Loading...</h1>
-        <h1 v-if="characterStore.characters.isError">{{ characterStore.characters.errorMennsage }}</h1>
+        <h1 v-if="characterStore.characters.isError">{{ characterStore.characters.errorMessage }}</h1>
         <template v-else>
             <h2>{{ props.title }}</h2>
 
