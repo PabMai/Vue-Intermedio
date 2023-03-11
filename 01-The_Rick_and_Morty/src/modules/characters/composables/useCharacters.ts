@@ -1,46 +1,24 @@
-import { onMounted, ref } from 'vue';
-import rickandmortyApi from '@/api/rickandmortyApi';
-import type { CharacterData, CharacterResult } from '@/modules/characters/interfaces/character';
+import { ref } from 'vue';
+
+import type { CharacterResult } from '@/modules/characters/interfaces/character';
 
 const characters = ref<CharacterResult[]>([]);
-const isLoading = ref<boolean>(true);
-const hasError = ref<boolean>(false);
-const errorMessage = ref<string>('');
+const isLoading = ref<boolean>(false);
+const isError = ref<boolean>(false);
+const errorMessage = ref<string | null>(null);
 
-export const useCharacters = () => {
-  // Lifecycle Hooks
-  onMounted(async () => {
-    await loadCharacters();
-  });
-  // Methods
-  const loadCharacters = async () => {
-    if (characters.value.length > 0) return;
+const useCharacters = () => {
+	return {
+		// Properties
+		characters,
+		errorMessage,
+		isError,
+		isLoading
 
-    try {
-      const data = await rickandmortyApi
-        .get<CharacterData[]>('/character')
-        .then((resp) => resp.data.results);
+		// Getters
 
-      characters.value = data;
-      isLoading.value = false;
-    } catch (error) {
-      hasError.value = true;
-      errorMessage.value = JSON.stringify(error);
-    }
-  };
-
-  if (characters.value.length === 0) {
-    rickandmortyApi.get<CharacterData[]>('/character').then((resp) => {
-      characters.value = resp.data.results;
-      isLoading.value = false;
-    });
-  }
-
-  return {
-    // Properties
-    characters,
-    isLoading,
-    hasError,
-    errorMessage
-  };
+		// Methods
+	};
 };
+
+export default useCharacters;
