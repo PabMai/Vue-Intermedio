@@ -10,26 +10,6 @@ const route = useRoute();
 
 const { id } = route.params as { id: string };
 
-const getCharacterCache = async (characterId: string): Promise<CharacterResult> => {
-    if (characterStore.checkIdStore(characterId)) {
-        return characterStore.ids.list[characterId];
-    }
-
-    const { data } = await rickandmortyApi.get<CharacterResult>(`/character/${characterId}`);
-
-    return data;
-}
-
-const { data: character } = useQuery(
-    ['character', id],
-    () => getCharacterCache(id),
-    {
-        onSuccess(character) {
-            characterStore.loadedCharacter(character);
-        },
-    }
-);
-
 </script>
 
 <template>
