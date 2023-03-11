@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 import type { CharacterResult } from '@/modules/characters/interfaces/character';
 import characterStore from '@/stores/characters.store';
@@ -45,7 +45,7 @@ const useCharacters = () => {
 		isLoading,
 
 		// Getters
-		count: characters.value.length
+		count: computed(() => characters.value.length)
 
 		// Methods
 	};
