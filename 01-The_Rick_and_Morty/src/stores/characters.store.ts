@@ -15,8 +15,8 @@ interface StoreCharacters {
 		list: {
 			[id: number]: CharacterResult;
 		};
-		isLoading: true;
-		isError: false;
+		isLoading: boolean;
+		isError: boolean;
 		errorMessage: string | null;
 	};
 
@@ -82,11 +82,21 @@ const characterStore: StoreCharacters = reactive<StoreCharacters>({
 	},
 
 	// Methods of character by id
-	startLoadingCharacter: (id: number) => {},
-	checkIdStore: (id: number) => {
-		return false;
+	startLoadingCharacter: (id: number) => {
+		characterStore.ids = {
+			...characterStore.ids,
+			isLoading: true,
+			isError: false,
+			errorMessage: null
+		};
 	},
-	loadedCharacter: (character: CharacterResult) => {},
+	checkIdStore: (id: number) => {
+		return !!characterStore.ids.list[id];
+	},
+	loadedCharacter: (character: CharacterResult) => {
+		characterStore.ids.isLoading = false;
+		characterStore.ids.list[character.id] = character;
+	},
 	loadCharacterFailed: (error: string) => {}
 });
 
