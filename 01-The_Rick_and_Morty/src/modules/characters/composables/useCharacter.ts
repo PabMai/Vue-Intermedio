@@ -12,10 +12,17 @@ const getCharacter = async (id: string): Promise<CharacterResult> => {
 		return characterSet.value[id];
 	}
 
-	const { data } = await rickandmortyApi.get<CharacterResult>(`/character/${id}`);
+	try {
+		const { data } = await rickandmortyApi.get<CharacterResult>(`/character/${id}`);
 
-	// ! TODO: manejar error
-	return data;
+		if (data) {
+			return data;
+		}
+
+		throw new Error(`No se encontró un personaje con id: ${id}`);
+	} catch (error: any) {
+		throw new Error(error);
+	}
 };
 
 const loadedCharacter = (character: CharacterResult) => {
@@ -24,10 +31,15 @@ const loadedCharacter = (character: CharacterResult) => {
 	characterSet.value[character.id] = character;
 };
 
+const loadedWithError = (error: string) => {
+	isError.value = true;
+	errorMessage.value = error;
+};
+
 const useCharacter = (id: string) => {
 	const { isLoading } = useQuery(['character', id], () => getCharacter(id), {
-		onSuccess: loadedCharacter
-		// TODO: Manejar error
+		onSuccess: loadedCharacter,
+		onError: loadedWithError
 	});
 
 	return {
