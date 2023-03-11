@@ -15,6 +15,8 @@ const getAllCharactersCache = async () => {
 
     const { data } = await rickandmortyApi.get<CharacterData[]>('/character');
 
+    characterStore.loadedCharacters(data.results)
+
     return data.results;
 }
 
@@ -25,8 +27,8 @@ useQuery(
         onSuccess(data) {
             characterStore.loadedCharacters(data);
         },
-        onError(error) {
-            console.log(error)
+        onError(error: any) {
+            characterStore.loadCharactersFailed(error.message)
         }
     }
 );
@@ -36,7 +38,10 @@ useQuery(
 <template>
     <div>
         <h1 v-if="characterStore.characters.isLoading">Loading...</h1>
-        <h1 v-if="characterStore.characters.isError">{{ characterStore.characters.errorMessage }}</h1>
+        <div v-if="characterStore.characters.isError">
+            <h1>Error al cargar</h1>
+            <p>{{ characterStore.characters.errorMessage }}</p>
+        </div>
         <template v-else>
             <h2>{{ props.title }}</h2>
 

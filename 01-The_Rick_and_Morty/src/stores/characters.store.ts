@@ -35,6 +35,13 @@ const characterStore = reactive<StoreCharacters>({
 	},
 	loadedCharacters: (data: CharacterResult[]) => {
 		console.log(data);
+
+		if (data.length === 0) {
+			return characterStore.loadCharactersFailed(
+				'La respuesta no es un arreglo de personajes'
+			);
+		}
+
 		characterStore.characters = {
 			count: data.length,
 			errorMessage: null,
@@ -43,7 +50,15 @@ const characterStore = reactive<StoreCharacters>({
 			list: data
 		};
 	},
-	loadCharactersFailed: (error: string) => {}
+	loadCharactersFailed: (error: string) => {
+		characterStore.characters = {
+			list: [],
+			count: 0,
+			isLoading: false,
+			isError: true,
+			errorMessage: error
+		};
+	}
 });
 
 characterStore.startLoadingCharacters();
