@@ -1,12 +1,24 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { watch, watchEffect } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import useCharacter from '@/modules/characters/composables/useCharacter';
 
 const route = useRoute();
+const router = useRouter();
 
 const { id } = route.params as { id: string };
 
 const { character, isLoading, isError, errorMessage } = useCharacter(id);
+
+watchEffect(() => {
+    if (!isLoading.value && isError.value) {
+        router.replace('/characters');
+    }
+    // console.log({
+    //     isLoading: isLoading.value,
+    //     isError: isError.value
+    // })
+})
 
 </script>
 
