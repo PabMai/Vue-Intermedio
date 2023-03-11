@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import type { CharacterResult } from '@/modules/characters/interfaces/character';
 import rickandmortyApi from '@/api/rickandmortyApi';
 import { useQuery } from '@tanstack/vue-query';
@@ -12,7 +12,7 @@ const getCharacter = async (id: string): Promise<CharacterResult> => {
 		return characterSet.value[id];
 	}
 
-	const { data } = await rickandmortyApi.get<CharacterResult>(`/character/${characterId}`);
+	const { data } = await rickandmortyApi.get<CharacterResult>(`/character/${id}`);
 
 	// ! TODO: manejar error
 	return data;
@@ -35,9 +35,10 @@ const useCharacter = (id: string) => {
 		errorMessage,
 		isError,
 		isLoading,
-		list: characterSet
+		list: characterSet,
 
 		// Getters
+		character: computed<CharacterResult | null>(() => characterSet.value[id])
 
 		// Methods
 	};
