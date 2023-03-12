@@ -1,15 +1,16 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
+import useClients from '../composables/useClients';
 
-console.log(import.meta.env)
+const { isLoading, clients } = useClients();
 
 </script>
 
 <template>
     <ul>
-        <li>
-            <RouterLink :to="{ name: 'client-id', params: { id: 1 } }">
-                Client Name
+        <li v-for="client of clients" :key="client.id">
+            <RouterLink :to="{ name: 'client-id', params: { id: client.id } }">
+                {{ client.name }}
             </RouterLink>
         </li>
     </ul>
