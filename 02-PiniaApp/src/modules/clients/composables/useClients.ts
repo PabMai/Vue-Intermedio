@@ -31,7 +31,9 @@ const useClients = () => {
     return {
         // Propierties
         isLoading,
-        clients
+        clients,
+        currentPage,
+        totalPages
     }
     
 }
