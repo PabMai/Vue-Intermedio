@@ -30,7 +30,7 @@ export const useClientsStore = defineStore('clients-store', () => {
                 return;
             }
 
-            if (page >= totalPages.value) {
+            if (page > totalPages.value) {
                 return;
             }
 

@@ -5,8 +5,8 @@ import { useClientsStore } from '@/store/clients';
 import { storeToRefs } from 'pinia';
 import { watch, computed } from 'vue';
 
-const getClients = async (): Promise<Client[]> => {
-  const { data } = await clientsApi.get<Client[]>('/clients?_page=1');
+const getClients = async (page: number): Promise<Client[]> => {
+  const { data } = await clientsApi.get<Client[]>(`/clients?_page=${page}`);
 
   return data;
 };
@@ -15,7 +15,10 @@ const useClients = () => {
   const clientsStore = useClientsStore();
   const { clients, currentPage, totalPages } = storeToRefs(clientsStore);
 
-  const { isLoading, data } = useQuery(['clients?page=', 1], () => getClients());
+  const { isLoading, data } = useQuery(
+    ['clients?page=', currentPage], 
+    () => getClients(currentPage.value)
+  );
 
   watch(data, (clients) => {
     if (clients) {
