@@ -26,6 +26,14 @@ export const useClientsStore = defineStore('clients-store', () => {
                 return;
             }
 
+            if (page <= 0) {
+                return;
+            }
+
+            if (page >= totalPages.value) {
+                return;
+            }
+
             currentPage.value = page;
         }
     }
