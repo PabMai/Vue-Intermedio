@@ -3,8 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import CounterOptionsPage from '@/modules/counter/pages/CounterOptionsPage.vue';
 import CounterSetupPage from '@/modules/counter/pages/CounterSetupPage.vue';
 // Clients Pages
-import ClientPage from '@/modules/clients/pages/ClientPage.vue';
-import ListPage from '@/modules/clients/pages/ListPage.vue';
+import ClientIdPage from '@/modules/clients/pages/ClientIdPage.vue';
+import ClientListPage from '@/modules/clients/pages/ClientListPage.vue';
 // Layouts
 import ClientsLayout from '@/modules/clients/layouts/ClientsLayout.vue';
 
@@ -27,8 +27,8 @@ const router = createRouter({
       component: ClientsLayout,
       redirect: { name: 'client-list' },
       children: [
-        { path: '/clients/list', name: 'client-list', component: ListPage },
-        { path: '/clients/:id', name: 'client-id', component: ClientPage }
+        { path: '/clients/list', name: 'client-list', component: ClientListPage },
+        { path: '/clients/:id', name: 'client-id', component: ClientIdPage }
       ]
     }
   ]
