@@ -1,14 +1,14 @@
-import { ref, computed } from 'vue'
-import { defineStore } from 'pinia'
+import { ref, computed } from 'vue';
+import { defineStore } from 'pinia';
 
 export const useCounterSetupStore = defineStore('conunter-setup', () => {
-  const count = ref<number>(0)
-  const lastChanged = ref<Date>()
+  const count = ref<number>(0);
+  const lastChanged = ref<Date>();
 
   const incrementBy = (value: number) => {
-    count.value += value
-    lastChanged.value = new Date()
-  }
+    count.value += value;
+    lastChanged.value = new Date();
+  };
 
   return {
     // State Properties
@@ -21,5 +21,5 @@ export const useCounterSetupStore = defineStore('conunter-setup', () => {
     // Actions
     incrementBy,
     increment: () => incrementBy(1)
-  }
-})
+  };
+});

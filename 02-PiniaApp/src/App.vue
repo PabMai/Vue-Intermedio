@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView } from 'vue-router';
 import IconPinia from '@/modules/shared/components/icons/IconPinia.vue';
 </script>
 
