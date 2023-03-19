@@ -7,9 +7,9 @@ import { watch, computed } from 'vue';
 
 const getClients = async (page: number): Promise<Client[]> => {
 
-  // await new Promise( resolve => {
-  //   setTimeout( () => resolve(true), 1500 );
-  // });
+  await new Promise( resolve => {
+    setTimeout( () => resolve(true), 500 );
+  });
 
   const { data } = await clientsApi.get<Client[]>(`/clients?_page=${page}`);
 
@@ -44,9 +44,9 @@ const useClients = () => {
     },
 
     // Getters
-    totalPageNumber: computed(() =>
-      [...new Array(totalPages.value)].map((value, index) => index + 1)
-    )
+    // totalPageNumber: computed(() =>
+    //   [...new Array(totalPages.value)].map((value, index) => index + 1)
+    // )
   };
 };
 
