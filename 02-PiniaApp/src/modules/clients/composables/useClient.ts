@@ -10,7 +10,6 @@ const getClient = async (id: number): Promise<Client> => {
 	// });
 
 	const { data } = await clientsApi.get<Client>(`/clients/${id}`);
-	console.log(data);
 
 	return data;
 };
@@ -20,13 +19,11 @@ const useClient = (id: number) => {
 
 	const { isLoading, data } = useQuery(['client', id], async () => getClient(id));
 
-	console.log(data.value);
-
 	watch(
 		() => data.value,
 		() => {
 			if (data.value) {
-				client.value = data.value;
+				client.value = { ...data.value };
 			}
 		},
 		{ immediate: true }
