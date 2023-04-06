@@ -3,7 +3,7 @@ import type { Client } from '@/modules/clients/interfaces/client';
 import { clientsApi } from '@/api/clientsApi';
 import { useClientsStore } from '@/store/clients';
 import { storeToRefs } from 'pinia';
-import { watch, computed } from 'vue';
+import { watch } from 'vue';
 
 const getClients = async (page: number): Promise<Client[]> => {
 

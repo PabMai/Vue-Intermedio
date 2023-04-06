@@ -1,5 +1,5 @@
-import { ref, watch } from 'vue';
-import { useQuery } from '@tanstack/vue-query';
+import { ref, watch, computed } from 'vue';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 
 import type { Client } from '@/modules/clients/interfaces/client';
 import { clientsApi } from '@/api/clientsApi';
@@ -35,10 +35,33 @@ const useClient = (id: number) => {
 		{ immediate: true }
 	);
 
+	const queryClient = useQueryClient();
+
+	const updateClient = async( client: Client ):Promise<Client> => {
+		const { data } = await clientsApi.patch<Client>(`/clients/${ client.id }`, client);
+		const queries = queryClient.getQueryCache().findAll(['clients?page='], { exact: false })
+		// Elimina el cache según la variable queries
+		//queries.forEach( query => query.reset());
+		// Vuelve a realizar la llamada a la API
+		queries.forEach( query => query.fetch());
+	
+		return data;
+	}
+	
+	const clientMutation = useMutation( updateClient );
+
 	return {
 		isLoading,
 		client, 
-		isError
+		isError,		
+		clientMutation,
+
+		// Methods
+		updateClient: clientMutation.mutate,
+		isUpdating: computed(() => clientMutation.isLoading.value),
+		isUpdatingSuccess: computed(() => clientMutation.isSuccess.value),
+		isErrorUpdating: computed(() => clientMutation.isError.value),
+
 	};
 };
 

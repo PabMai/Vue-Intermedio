@@ -6,3 +6,5 @@ insert_final_newline = true
 charset = utf-8
 indent_style = tab
 tab_width = 4
+printWidth = 80,
+
