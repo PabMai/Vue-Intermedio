@@ -5,9 +5,9 @@ import type { Client } from '@/modules/clients/interfaces/client';
 import { clientsApi } from '@/api/clientsApi';
 
 const getClient = async (id: number): Promise<Client> => {
-	// await new Promise((resolve) => {
-	// 	setTimeout(() => resolve(true), 500);
-	// });
+	await new Promise((resolve) => {
+		setTimeout(() => resolve(true), 500);
+	});
 
 	const { data } = await clientsApi.get<Client>(`/clients/${id}`);
 
