@@ -3,17 +3,24 @@ import { useRoute } from 'vue-router';
 
 import LoadingModal from '@/modules/shared/components/LoadingModal.vue';
 import useClient from '@/modules/clients/composables/useClient';
-import { useMutation } from '@tanstack/vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 import type { Client } from '@/modules/clients/interfaces/client';
 import { clientsApi } from '@/api/clientsApi';
 import { watch } from 'vue';
 
 const route = useRoute();
 
+const queryClient = useQueryClient();
+
 const { client, isLoading } = useClient(Number(route.params.id))
 
 const updateClient = async( client: Client ):Promise<Client> => {
 	const { data } = await clientsApi.patch<Client>(`/clients/${ client.id }`, client);
+	const queries = queryClient.getQueryCache().findAll(['clients?page='], { exact: false })
+	// Elimina el cache según la variable queries
+	//queries.forEach( query => query.reset());
+	// Vuelve a realizar la llamada a la API
+	queries.forEach( query => query.fetch());
 
 	return data;
 }

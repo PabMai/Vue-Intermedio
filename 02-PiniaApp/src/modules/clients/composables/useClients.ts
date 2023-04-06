@@ -7,9 +7,9 @@ import { watch, computed } from 'vue';
 
 const getClients = async (page: number): Promise<Client[]> => {
 
-  await new Promise( resolve => {
-    setTimeout( () => resolve(true), 500 );
-  });
+//   await new Promise( resolve => {
+//     setTimeout( () => resolve(true), 500 );
+//   });
 
   const { data } = await clientsApi.get<Client[]>(`/clients?_page=${page}`);
 
@@ -29,7 +29,7 @@ const useClients = () => {
     if (clients) {
       clientsStore.setClients(clients);
     }
-  });
+  }, { immediate: true });
 
   return {
     // Propierties
