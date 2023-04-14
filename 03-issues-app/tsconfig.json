@@ -3,7 +3,9 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@modules/*": ["src/modules/*"]
+      "@modules/*": ["src/modules/*"],
+      "@stores/*": ["src/stores/*"],
+      "@src/*": ["src/*"]
     },
     "allowSyntheticDefaultImports": true,
     "plugins": [{ "name": "ts-vue-plugin" }]
