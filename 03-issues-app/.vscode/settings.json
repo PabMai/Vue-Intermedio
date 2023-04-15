@@ -12,5 +12,8 @@
       "color": "#555"
     }
   ],
-  "editor.wordWrapColumn": 80
+  "editor.wordWrapColumn": 80,
+  "[dotenv]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  }
 }
