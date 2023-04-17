@@ -1,19 +1,29 @@
 <script setup lang="ts">
-import LoaderSpinner from '@modules/shared/components/LoaderSpinner.vue';
-import useLabels from '@modules/issues/composables/useLabels';
-import { Label } from '../../interfaces/label';
+import LoaderSpinner from '@modules/shared/components/LoaderSpinner.vue'
+import useLabels from '@modules/issues/composables/useLabels'
 
-const { labelsQuery } = useLabels();
-console.log(labelsQuery.data)
-
-const data = labelsQuery.data;
+const { labelsQuery } = useLabels()
 
 </script>
 
 <template>
-  <LoaderSpinner size="50px" :thickness="1" :show-text="false" v-if="!labelsQuery.isLoading" />
-  <q-chip v-for="label of data" :key="label.id" color="primary" outline clickable>{{ label.name
-  }}</q-chip>
+	<div class="q-mt-md">
+		<LoaderSpinner
+			size="50px"
+			:thickness="1"
+			:show-text="false"
+			v-if="labelsQuery.isLoading.value"
+		/>
+		<q-chip
+			v-else
+			v-for="label of labelsQuery.data.value"
+			:key="label.id"
+			color="primary"
+			outline
+			clickable
+			>{{ label.name }}</q-chip
+		>
+	</div>
 </template>
 
 <style scoped></style>
