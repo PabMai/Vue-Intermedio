@@ -1,6 +1,9 @@
+import { computed } from 'vue';
 import { useQuery } from '@tanstack/vue-query';
 import { githubApi } from '@src/api/githubApi';
 import { Label } from '@modules/issues/interfaces/label';
+import useIssuesStore from '../../../stores/issues';
+// import { storeToRefs } from 'pinia'
 
 const getLabels = async (): Promise<Label[]> => {
 
@@ -11,6 +14,9 @@ const getLabels = async (): Promise<Label[]> => {
 
 const useLabels = () => {
 
+  const issuesStore = useIssuesStore();
+  // const { labels } = storeToRefs(issuesStore)
+
   const labelsQuery = useQuery(
     ['labels'],
     getLabels,
@@ -20,7 +26,14 @@ const useLabels = () => {
   );
 
   return {
-    labelsQuery
+    labelsQuery,
+
+    // Getters
+    selectedLabels: computed(() => issuesStore.labels),
+    //selectedLabels: labels,
+
+    // Methods
+    toggleLabel: issuesStore.toggleLabel
   }
 }
 

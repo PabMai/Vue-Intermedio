@@ -14,8 +14,12 @@ const useIssuesStore = defineStore('issues', () => {
 
     // Actions
     toggleLabel(labelName: string) {
-      // TODO: implementar
-      throw new Error('No implementado');
+      if ( labels.value.includes( labelName )) {
+        labels.value = labels.value.filter( label => label !== labelName );
+        return;
+      }
+
+      labels.value.push(labelName);
     }
   }
 });

@@ -2,8 +2,7 @@
 import LoaderSpinner from '@modules/shared/components/LoaderSpinner.vue'
 import useLabels from '@modules/issues/composables/useLabels'
 
-const { labelsQuery } = useLabels()
-
+const { labelsQuery, toggleLabel, selectedLabels } = useLabels()
 </script>
 
 <template>
@@ -19,8 +18,9 @@ const { labelsQuery } = useLabels()
 			v-for="label of labelsQuery.data.value"
 			:key="label.id"
 			color="primary"
-			outline
+			:outline="!selectedLabels.includes(label.name)"
 			clickable
+			@click="toggleLabel(label.name)"
 			>{{ label.name }}</q-chip
 		>
 	</div>
