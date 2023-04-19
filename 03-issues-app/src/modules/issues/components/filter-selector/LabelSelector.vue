@@ -17,7 +17,7 @@ const { labelsQuery, toggleLabel, selectedLabels } = useLabels()
 			v-else
 			v-for="label of labelsQuery.data.value"
 			:key="label.id"
-			color="primary"
+			:style="{ color: `#${label.color}` }"
 			:outline="!selectedLabels.includes(label.name)"
 			clickable
 			@click="toggleLabel(label.name)"
