@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { toRef } from 'vue'
+import VueMarkdown from 'vue-markdown-render';
+
 import { Issue, State } from '../../interfaces/issue'
+import { timeSince } from '../../../shared/helpers/time-since';
 
 interface Props {
 	issue: Issue
@@ -26,7 +29,7 @@ const issue = toRef(props, 'issue')
 					}}</router-link>
 				</q-item-label>
 				<q-item-label caption>
-					{{ issue.created_at }} - 2 days ago
+					{{ timeSince(issue.created_at) }} ago
 				</q-item-label>
 			</q-item-section>
 
@@ -53,8 +56,8 @@ const issue = toRef(props, 'issue')
 
 		<q-separator />
 
-		<q-item-section class="q-pa-md">
-			{{ issue.body }}
+		<q-item-section class="q-pa-md markdown-style">
+		  <vue-markdown :source="issue.body || ''" />
 		</q-item-section>
 
 		<q-separator />
@@ -64,8 +67,8 @@ const issue = toRef(props, 'issue')
 				<q-chip
 					v-for="label of issue.labels"
 					:key="label.id"
-					:style="{ color: `#${label.color}` }"
-					outline
+					:style="{ color: `#${label.color}`}"
+					class="bg-grey-10"
 					>{{ label.name }}</q-chip
 				>
 			</div>
@@ -73,4 +76,10 @@ const issue = toRef(props, 'issue')
 	</q-card>
 </template>
 
-<style scoped></style>
+<style>
+
+.markdown-style img {
+  width: 350px;
+}
+
+</style>
