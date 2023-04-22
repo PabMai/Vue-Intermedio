@@ -17,14 +17,12 @@ const { issuesQuery } = useIssues();
 
   <div class="row">
     <div class="col-xs-12 col-md-4">
-      <!-- TODO: Filtros -->
       <!-- FilterSelector -->
       <FilterSelector />
     </div>
     <div class="col-xs-12 col-md-8">
-      <!-- TODO: Loader -->
       <LoaderSpinner v-if="issuesQuery.isLoading.value" color="white" />
-      <IssueList v-else />
+      <IssueList v-else :issues="issuesQuery.data?.value || []" />
     </div>
   </div>
 </template>
