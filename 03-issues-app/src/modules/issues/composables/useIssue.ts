@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/vue-query';
 import { githubApi } from '../../../api/githubApi';
 import { Issue } from '../interfaces/issue';
-import { Comment } from '../interfaces/comment';
 import { computed } from 'vue';
 
 const getIssue = async (issueNumber: number): Promise<Issue> => {

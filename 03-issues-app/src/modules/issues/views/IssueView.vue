@@ -3,7 +3,6 @@ import { useRoute } from 'vue-router';
 import LoaderSpinner from '@modules/shared/components/LoaderSpinner.vue';
 import IssueCard from '@modules/issues/components/issue-list/IssueCard.vue';
 import useIssue from '../composables/useIssue';
-import { Issue } from '../interfaces/issue';
 
 const route = useRoute();
 const { id } = route.params;
