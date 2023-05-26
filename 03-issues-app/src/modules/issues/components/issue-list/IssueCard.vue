@@ -13,12 +13,13 @@ interface Props {
 const props = defineProps<Props>();
 const issue = toRef(props, 'issue');
 
-const { prefetchIssue } = useIssue(issue.value.number, { autoload: false });
+const { prefetchIssue, setIssueCacheData } = useIssue(issue.value.number, { autoload: false });
 
 </script>
 
 <template>
-	<q-card @mouseenter="prefetchIssue(issue.number)" class="text-black col-12 q-mb-md" flat bordered>
+	<!-- <q-card @mouseenter="prefetchIssue(issue.number)" class="text-black col-12 q-mb-md" flat bordered> -->
+	<q-card @mouseenter="setIssueCacheData(issue)" class="text-black col-12 q-mb-md" flat bordered>
 		<q-item>
 			<q-item-section avatar>
 				<q-avatar>
