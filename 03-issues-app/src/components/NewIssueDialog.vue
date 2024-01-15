@@ -4,6 +4,7 @@ import { ref, watch } from 'vue'
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 import useIssueMutating from '../modules/issues/composables/useIssueMutation';
+import { emit } from 'process';
 
 interface Props {
   isOpen: boolean;
@@ -28,6 +29,17 @@ const labels = ref<string[]>([]);
 watch(props, () => {
   isOpen.value = props.isOpen;
 });
+
+watch( () => issueMutation.isSuccess.value, ( isSuccess ) => {
+  if (isSuccess) {
+    title.value = '';
+    body.value = '';
+    labels.value = [];
+
+    issueMutation.reset();
+    emits('onClose');
+  }
+})
 
 </script>
 

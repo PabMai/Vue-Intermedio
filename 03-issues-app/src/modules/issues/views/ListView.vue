@@ -51,6 +51,7 @@ const openDialog = () => {
 
   <!-- Dialog de new Issue -->
   <NewIssueDialog
+    v-if="labelsQuery.dat"
     :is-open="isOpen"
     :labels="labelsQuery.data.value?.map(label => label.name) || []"
     @on-close="isOpen = false"

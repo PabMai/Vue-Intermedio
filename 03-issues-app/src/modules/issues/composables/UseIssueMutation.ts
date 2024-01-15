@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/vue-query';
+import { useMutation, useQueryClient } from '@tanstack/vue-query';
 
 import { Issue } from '../interfaces/issue';
 import { githubApi } from '../../../api/githubApi';
@@ -24,9 +24,26 @@ const addIssue = async({ title, body = '', labels = [] }: Args): Promise<Issue> 
 
 const useIssueMutation = () => {
 
+  const queryClient = useQueryClient();
+
   const issueMutation = useMutation( addIssue, {
-    onSuccess: () => {
-      // onSuccess
+    onSuccess: ( issue ) => {
+      queryClient.invalidateQueries({
+        queryKey: ['issues'],
+        exact: false
+      });
+
+      queryClient.refetchQueries(
+        ['issues'],
+        {
+          exact: false
+        }
+      );
+
+      queryClient.setQueryData(
+        ['issues', issue.number],
+        issue
+      );
     },
     onSettled: () => {
       // onSettled
