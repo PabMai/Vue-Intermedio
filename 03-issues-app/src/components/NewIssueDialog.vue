@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { MdEditor } from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+
 const isOpen = ref<boolean>(true)
 
 const title = ref<string>('')
@@ -10,7 +13,7 @@ const labels = ref<string[]>([])
 
 <template>
 	<div class="q-pa-md q-gutter-sm">
-		<q-dialog v-model="isOpen" position="bottom">
+		<q-dialog v-model="isOpen" position="bottom" full-width persistent >
 			<q-card class="q-pa-md q-gutter-md" style="width: 500px">
 				<q-form>
 					<q-card-section class="column no-wrap">
@@ -26,6 +29,7 @@ const labels = ref<string[]>([])
 								label="Title"
 								v-model="title"
 								filled
+                dense
 								placeholder="Title"
 								class="q-mb-sm"
 							/>
@@ -35,6 +39,7 @@ const labels = ref<string[]>([])
 								v-model="labels"
 								:options="[]"
 								filled
+                dense
 								multiple
 								use-chips
 								stack-label
@@ -43,6 +48,7 @@ const labels = ref<string[]>([])
 						</div>
 
 						<!-- Markdown editor -->
+            <MdEditor v-model="body" placeholder="# Markdown" language="en-US" />
 					</q-card-section>
 
 					<q-card-actions align="right">
