@@ -1,14 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
 
-const isOpen = ref<boolean>(true)
+interface Props {
+  isOpen: boolean;
+  labels: string[];
+}
 
-const title = ref<string>('')
-const body = ref<string>('')
-const labels = ref<string[]>([])
+interface Emits {
+  (e: 'onClose'): void;
+}
+
+const props = defineProps<Props>();
+const emits = defineEmits<Emits>();
+
+const isOpen = ref<boolean>(false);
+
+const title = ref<string>('');
+const body = ref<string>('');
+const labels = ref<string[]>([]);
+
+watch(props, () => {
+  isOpen.value = props.isOpen;
+});
+
 </script>
 
 <template>
@@ -37,7 +54,7 @@ const labels = ref<string[]>([])
 							<q-select
 								label="Multiple selection"
 								v-model="labels"
-								:options="[]"
+								:options="$props.labels"
 								filled
                 dense
 								multiple
@@ -53,6 +70,7 @@ const labels = ref<string[]>([])
 
 					<q-card-actions align="right">
 						<q-btn
+              @click="emits('onClose')"
               label="Cancel"
               v-close-popup
               flat

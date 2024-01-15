@@ -1,15 +1,22 @@
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import LoaderSpinner from '@modules/shared/components/LoaderSpinner.vue';
 import FilterSelector from '@modules/issues/components/filter-selector/FilterSelector.vue';
 import IssueList from '@modules/issues/components/issue-list/IssueList.vue';
-import useIssues from '../composables/useIssues';
 import FloatingButtons from '../components/FloatingButtons.vue';
 import NewIssueDialog from '@src/components/NewIssueDialog.vue';
 
-const { issuesQuery } = useIssues();
+import useIssues from '../composables/useIssues';
+import useLabels from '@modules/issues/composables/useLabels';
 
-const listPageClickTemp1 = () => {
-  console.log('listPageClickTemp1');
+const { issuesQuery } = useIssues();
+const { labelsQuery } = useLabels();
+
+const isOpen = ref<boolean>(false);
+
+const openDialog = () => {
+  isOpen.value = true;
 }
 
 </script>
@@ -38,12 +45,16 @@ const listPageClickTemp1 = () => {
       icon: 'add',
       color: 'primary',
       size: 'md',
-      action: listPageClickTemp1
+      action: openDialog,
     },
   ]" />
 
   <!-- Dialog de new Issue -->
-  <NewIssueDialog />
+  <NewIssueDialog
+    :is-open="isOpen"
+    :labels="labelsQuery.data.value?.map(label => label.name) || []"
+    @on-close="isOpen = false"
+  />
 </template>
 
 <style scoped></style>
