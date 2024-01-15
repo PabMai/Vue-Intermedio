@@ -3,6 +3,7 @@ import { ref, watch } from 'vue'
 
 import { MdEditor } from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import useIssueMutating from '../modules/issues/composables/UseIssueMutation';
 
 interface Props {
   isOpen: boolean;
@@ -15,6 +16,8 @@ interface Emits {
 
 const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
+
+const { issueMutation } = useIssueMutating();
 
 const isOpen = ref<boolean>(false);
 
@@ -49,6 +52,7 @@ watch(props, () => {
                 dense
 								placeholder="Title"
 								class="q-mb-sm"
+                :rules="[val => !!val || 'Field is required']"
 							/>
 
 							<q-select
@@ -80,7 +84,6 @@ watch(props, () => {
 							type="submit"
 							flat
 							label="Add Issue"
-							v-close-popup
 							color="dark"
 						/>
 					</q-card-actions>
